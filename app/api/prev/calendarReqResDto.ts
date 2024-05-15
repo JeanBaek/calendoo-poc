@@ -4,8 +4,7 @@ import {CalendarResource, DateDto, Etag, EventsResource} from "./calendarValueDt
 // export type CalendarListGetReq = {}
 // export type CalendarListGetRes = {}
 export type CalendarListGetListReq = {
-    pathParams: {},
-    queryParams: {
+    queryParams?: {
         maxResults?: number; // integer
         minAccessRole?: string;
         pageToken?: string;
@@ -93,7 +92,7 @@ export type EventCreateReq = {
     pathParams: {
         calendarId: string;
     },
-    queryParams: {
+    queryParams?: {
         conferenceDataVersion?: 0 | 1;
         maxAttendees?: number; // integer;
         sendNotifications?: boolean;
@@ -101,8 +100,11 @@ export type EventCreateReq = {
         supportsAttachments?: boolean;
     },
     body: {
-        end: DateDto;
         start: DateDto;
+        end: DateDto;
+        summary?: string;
+        description?: string;
+        location?: string;
         // 이 외에도 수많은 optional properties 존재. 참고: https://developers.google.com/calendar/api/v3/reference/events/insert#request-body
     },
 }
