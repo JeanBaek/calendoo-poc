@@ -25,15 +25,54 @@ Calendoo-poc는 캘린더와 투두를 결합한 모바일 앱 서비스 Calendo
     1. 체크 완료되면 opacity 낮춰서 흐림 처리
 5. 구글 캘린더 API로 캘린더 정보들 CRUD
 
-**실행 코드**
-```
-npx http-server -p 8000
+## 실행 코드
+### 1. install dependencies
+```sh
+npm install
 
-// 아래 주소 중 하나로 방문 
-// http://127.0.0.1:8000
-// http://172.30.83.87:8000
-// http://localhost:8000 <- 리다이렉트 주소
+// npx http-server -p 8000
 ```
 
-실행 이후 로그인 과정이 종료되면 등록된 리다이렉트 주소 http://localhost:8000 로 이동합니다.
+아래 주소 중 하나로 방문
+<br />
+http://127.0.0.1:8000
+<br />
+http://172.30.83.87:8000
+<br />
+http://localhost:8000 <- 리다이렉트 주소
+
+### 2. Configure your local environment
+```sh
+cp .env.local.example .env.local
+```
+
+A database is needed to persist user accounts and to support email sign in. However, you can still use NextAuth.js for authentication without a database by using OAuth for authentication. If you do not specify a database, [JSON Web Tokens](https://jwt.io/introduction) will be enabled by default.
+
+You **can** skip configuring a database and come back to it later if you want.
+
+For more information about setting up a database, please check out the following links:
+
+- Docs: [authjs.dev/reference/core/adapters](https://authjs.dev/reference/core/adapters)
+
+### 3. Start the application
+
+To run this site locally, use:
+
+```sh
+npm run dev
+```
+실행 이후 로그인 과정이 종료되면 등록된 리다이렉트 주소 http://localhost:3000 로 이동합니다.
+
+To run it in production mode, use:
+
+```sh
+npm run build
+npm run start
+```
+
+### 4. Preparing for Production
+
+Follow the [Deployment documentation](https://authjs.dev/getting-started/deployment)
+
+
 
