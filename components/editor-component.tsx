@@ -48,7 +48,7 @@ export const EditorComponent: React.FC<EditorComponentProps> = ({
     }
 
     return initForm;
-  }, [targetTodo]);
+  }, [targetTodo, show]);
 
   const initForm = () => {
     setFormTodo({
