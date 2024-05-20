@@ -3,6 +3,20 @@ import { OAuth2Client } from 'google-auth-library';
 import { auth, EnrichedSession } from 'auth';
 
 export async function GET(request: Request) {
+  const parts = request.url!.split('/');
+  const getListIndex = parts.indexOf('getList');
+  const date = parts[getListIndex + 1];
+
+  if (!date) {
+    return new Response(
+      JSON.stringify({ error: 'Missing or invalid event ID' }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
   const session = (await auth()) as EnrichedSession;
 
   if (!session) {
@@ -31,33 +45,29 @@ export async function GET(request: Request) {
     auth: oauth2Client,
   });
 
+  const timeMin = new Date(date + 'T00:00:00+09:00').toISOString();
+  const timeMax = new Date(date + 'T23:59:59+09:00').toISOString();
+
   try {
-    const calendarRes = await calendar.calendarList.list({
-      maxResults: 10,
+    const calendarRes = await calendar.events.list({
+      calendarId: 'primary',
+      timeMin: timeMin,
+      timeMax: timeMax,
+      maxResults: 20,
+      singleEvents: true,
+      orderBy: 'startTime',
     });
 
-    const calendarList = calendarRes.data.items;
+    const events = calendarRes.data.items;
 
-    if (!calendarList?.length) {
-      console.log('No calendar list found.');
-      return new Response(
-        JSON.stringify({ success: false, message: 'No calendar list found.' }),
-        {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
+    if (!events?.length) console.log('No upcoming events found.');
 
-    return new Response(
-      JSON.stringify({ success: true, events: calendarList }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ events }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (err) {
-    console.error('Error retrieving calendar list:', err);
+    console.error('Error retrieving events:', err);
 
     return new Response(JSON.stringify({ success: false, error: err }), {
       status: 500,

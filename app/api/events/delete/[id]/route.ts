@@ -2,7 +2,21 @@ import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 import { auth, EnrichedSession } from 'auth';
 
-export async function POST(request: Request) {
+export async function DELETE(request: Request) {
+  const parts = request.url!.split('/');
+  const deleteIndex = parts.indexOf('delete');
+  const eventId = parts[deleteIndex + 1];
+
+  if (!eventId) {
+    return new Response(
+      JSON.stringify({ error: 'Missing or invalid event ID' }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
   const session = (await auth()) as EnrichedSession;
 
   if (!session) {
@@ -31,44 +45,22 @@ export async function POST(request: Request) {
     auth: oauth2Client,
   });
 
-  const body = await request.json();
-
-  const event = {
-    summary: body.title,
-    location: 'Seoul',
-    description: '',
-    start: {
-      date: body.startDate,
-      timeZone: 'Asia/Seoul',
-    },
-    end: {
-      date: body.endDate,
-      timeZone: 'Asia/Seoul',
-    },
-    reminders: {
-      useDefault: false,
-      overrides: [
-        { method: 'email', minutes: 24 * 60 },
-        { method: 'popup', minutes: 10 },
-      ],
-    },
-  };
-
   try {
-    const response = await (calendar.events.insert as any)({
+    const response = await calendar.events.delete({
       calendarId: 'primary',
-      requestBody: event,
+      eventId: eventId,
     });
 
-    return new Response(
-      JSON.stringify({ success: true, htmlLink: response.data.htmlLink }),
-      {
+    if (response.status === 204) {
+      return new Response(JSON.stringify({ success: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
-      }
-    );
+      });
+    } else {
+      throw new Error('Failed to delete the event');
+    }
   } catch (err) {
-    console.error('Error creating event:', err);
+    console.error('Error deleting event:', err);
 
     return new Response(JSON.stringify({ success: false, error: err }), {
       status: 500,
