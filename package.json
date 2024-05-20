@@ -1,13 +1,13 @@
 {
-  "name": "calendoo-nextjs",
+  "name": "calendoo-poc",
   "version": "0.1.0",
   "private": true,
-  "description": "Calendoo poc with nextjs",
+  "description": "Calendoo poc to experiment with the core functionalities of a mobile app service that combines calendar and to-do list features.",
   "repository": "https://github.com/JeanBaek/calendoo-poc.git",
   "bugs": {
     "url": "https://github.com/JeanBaek/calendoo-poc/issues"
   },
-  "homepage": "https://calendoo.vercel.app",
+  "homepage": "https://calendoo-poc.vercel.app",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -32,15 +32,18 @@
     "next": "latest",
     "next-auth": "beta",
     "react": "^18.2.0",
+    "react-calendar": "^5.0.0",
     "react-dom": "^18.2.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
-    "unstorage": "^1.10.1"
+    "unstorage": "^1.10.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.12.8",
     "@types/react": "^18.2.23",
     "@types/react-dom": "^18.2.8",
+    "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.15",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
