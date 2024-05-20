@@ -4,23 +4,26 @@ import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
 import CustomLink from './custom-link';
-import { NavigationMenuLink } from './ui/navigation-menu';
+import { NavigationMenuLink } from '@/components/snippet/navigation-menu';
 import React from 'react';
-import { Button } from './ui/button';
+import { Button } from '@/components/snippet/button';
 
 export function MainNav() {
   return (
     <div className="flex gap-4 items-center">
       <CustomLink href="/">
-        <Button variant="ghost" className="inline-flex p-0 items-center">
-          <Image
-            src="/logo-big.png"
-            alt="Home"
-            width="32"
-            height="32"
-            className="min-w-8"
-          />
-        </Button>
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" className="inline-flex p-0 items-center">
+            <Image
+              src="/logo-big.png"
+              alt="Home"
+              width="32"
+              height="32"
+              className="min-w-8"
+            />
+          </Button>
+          <h1 className="text-3xl font-bold">Calendoo poc</h1>
+        </div>
       </CustomLink>
     </div>
   );
