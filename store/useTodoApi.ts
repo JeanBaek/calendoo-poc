@@ -9,9 +9,9 @@ type CreateRes = {
 const useTodoApi = () => {
   const getCalendarEvents = async (date: Date) => {
     const response = await fetch(`/api/events/getList/${formatDate(date)}`);
-    const data: { events: EventDto[] } = await response.json();
+    const data: { events?: EventDto[] } = await response.json();
 
-    return data.events.map(event => {
+    return (data.events || []).map(event => {
       const date = event.start.date || event.start.dateTime;
       return {
         id: event.id,

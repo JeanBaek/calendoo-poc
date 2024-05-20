@@ -9,7 +9,7 @@ export async function GET(request: Request) {
 
   if (!date) {
     return new Response(
-      JSON.stringify({ error: 'Missing or invalid event ID' }),
+      JSON.stringify({ success: false, error: 'Missing or invalid event ID' }),
       {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
@@ -62,7 +62,7 @@ export async function GET(request: Request) {
 
     if (!events?.length) console.log('No upcoming events found.');
 
-    return new Response(JSON.stringify({ events }), {
+    return new Response(JSON.stringify({ success: true, events }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
