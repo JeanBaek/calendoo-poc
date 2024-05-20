@@ -40,13 +40,9 @@ npm install
 cp .env.local.example .env.local
 ```
 
-사용자 계정을 지속하고 이메일로 로그인을 지원하기 위해 데이터베이스가 필요합니다. 그러나 데이터베이스를 사용하지 않고도 OAuth를 사용하여 인증을 사용하여 NextAuth.js를 사용할 수 있습니다. 데이터베이스를 지정하지 않으면 [JSON Web Tokens](https://jwt.io/introduction)가 기본적으로 활성화됩니다.
+```.env.local``` 파일에 AUTH_SECRET, AUTH_GOOGLE_ID, AUTH_GOOGLE_SECRET 정보를 추가해주세요.
 
-원한다면 데이터베이스 설정을 건너뛰고 나중에 돌아와도 됩니다.
 
-데이터베이스 설정에 대한 자세한 정보는 다음 링크를 참조하세요:
-
-- 문서: [authjs.dev/reference/core/adapters](https://authjs.dev/reference/core/adapters)
 
 ### 3. 애플리케이션 시작
 
