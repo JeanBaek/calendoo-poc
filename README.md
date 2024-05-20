@@ -52,3 +52,14 @@ npm run dev
 실행 이후 로그인 과정이 종료되면 등록된 리다이렉트 주소 http://localhost:3000 로 이동합니다.
 
 
+
+<br />
+<br />
+<br />
+
+<div align="right">
+    <a href="https://hits.seeyoufarm.com">
+        <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FJeanBaek%2Fcalendoo-poc&count_bg=%23093B7D&title_bg=%23BCBCBC&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/>
+    </a>
+</div>
+
